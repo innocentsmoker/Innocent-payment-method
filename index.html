@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Innocent Tech - Pochi La Biashara Payment</title>
+    <title>Innocent Tech - M-Pesa STK Push Payment</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-green: #28a745;
+            --secondary-green: #20c997;
+            --dark-green: #218838;
+            --gold: #ffc107;
+            --dark-gold: #e0a800;
+            --red: #dc3545;
+            --dark-red: #c82333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #343a40;
+            --text-light: #6c757d;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -20,9 +34,9 @@
             flex-direction: column;
             align-items: center;
             padding: 20px;
-            color: #333;
+            color: var(--text-dark);
             background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            animation: gradientBG 20s ease infinite;
         }
 
         @keyframes gradientBG {
@@ -33,194 +47,350 @@
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid transparent;
+            border-image: linear-gradient(90deg, var(--primary-green), var(--gold), var(--red)) 1;
         }
 
         .logo {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
-            background: linear-gradient(90deg, #28a745, #ffc107, #dc3545);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            margin-bottom: 15px;
         }
 
-        .logo i {
-            font-size: 2.5rem;
-            margin-right: 15px;
-            background: linear-gradient(90deg, #28a745, #ffc107, #dc3545);
+        .logo-icon {
+            font-size: 3rem;
+            margin-right: 20px;
+            background: linear-gradient(90deg, var(--primary-green), var(--gold), var(--red));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
         }
 
         .logo-text h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary-green), var(--gold), var(--red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 5px;
         }
 
         .logo-text p {
-            color: #666;
-            font-size: 1rem;
+            color: var(--text-light);
+            font-size: 1.1rem;
             font-weight: 500;
+        }
+
+        .tagline {
+            color: var(--text-light);
+            font-size: 1rem;
+            margin-top: 10px;
+            font-style: italic;
         }
 
         .container {
             display: flex;
             flex-wrap: wrap;
             gap: 30px;
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
             justify-content: center;
+            align-items: stretch;
         }
 
         .payment-form-container {
             background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 35px;
             flex: 1;
-            min-width: 300px;
-            max-width: 500px;
-            border: 3px solid;
-            border-image: linear-gradient(90deg, #28a745, #ffc107, #dc3545) 1;
+            min-width: 350px;
+            max-width: 550px;
+            border: 3px solid transparent;
+            border-image: linear-gradient(90deg, var(--primary-green), var(--gold), var(--red)) 1;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-form-container:hover {
+            transform: translateY(-5px);
         }
 
         .payment-form-container h2 {
-            color: #28a745;
-            margin-bottom: 20px;
+            color: var(--primary-green);
+            margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            font-size: 1.8rem;
+            border-bottom: 3px solid #f0f0f0;
+            font-size: 2rem;
             text-align: center;
+            position: relative;
+        }
+
+        .payment-form-container h2:after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-green), var(--gold), var(--red));
         }
 
         .form-group {
             margin-bottom: 25px;
+            position: relative;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
-            color: #444;
+            color: var(--text-dark);
+            font-size: 1.1rem;
         }
 
         .form-control {
             width: 100%;
-            padding: 14px;
+            padding: 16px 20px;
             border: 2px solid #e1e5ee;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: border-color 0.3s;
+            border-radius: 12px;
+            font-size: 17px;
+            transition: all 0.3s;
+            background-color: var(--white);
         }
 
         .form-control:focus {
-            border-color: #28a745;
+            border-color: var(--primary-green);
             outline: none;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
         }
 
-        .amount-input {
+        .form-control.error {
+            border-color: var(--red);
+            background-color: rgba(220, 53, 69, 0.05);
+        }
+
+        .form-control.success {
+            border-color: var(--primary-green);
+            background-color: rgba(40, 167, 69, 0.05);
+        }
+
+        .error-message {
+            color: var(--red);
+            font-size: 0.9rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .phone-input-wrapper {
             position: relative;
         }
 
-        .amount-input::before {
-            content: "KES";
+        .phone-prefix {
             position: absolute;
             left: 15px;
             top: 50%;
             transform: translateY(-50%);
             font-weight: 600;
-            color: #666;
-            z-index: 1;
+            color: var(--text-light);
+            z-index: 2;
         }
 
-        .amount-input input {
-            padding-left: 60px;
+        .phone-input {
+            padding-left: 50px !important;
         }
 
-        .info-box {
-            background: linear-gradient(135deg, #d4edda, #c3e6cb);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-left: 4px solid #28a745;
-        }
-
-        .info-box.pochi-box {
-            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-            border-left: 4px solid #ffc107;
-        }
-
-        .info-box.security-box {
-            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
-            border-left: 4px solid #dc3545;
-        }
-
-        .info-box p {
-            margin-bottom: 8px;
+        .phone-helper {
             font-size: 0.9rem;
-            color: #155724;
+            color: var(--text-light);
+            margin-top: 8px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .info-box.pochi-box p {
-            color: #856404;
+        .phone-count {
+            font-weight: 600;
         }
 
-        .info-box.security-box p {
-            color: #721c24;
+        .phone-count.error {
+            color: var(--red);
         }
 
-        .info-box .pochi-number {
-            font-weight: 700;
-            color: #dc3545;
-            font-size: 1.2rem;
-            background-color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 5px;
+        .phone-count.success {
+            color: var(--primary-green);
+        }
+
+        .amount-input-wrapper {
+            position: relative;
+        }
+
+        .amount-prefix {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 600;
+            color: var(--text-light);
+            z-index: 2;
+        }
+
+        .amount-input {
+            padding-left: 60px !important;
         }
 
         .amount-limits {
             display: flex;
             justify-content: space-between;
-            margin-top: 5px;
+            margin-top: 8px;
+            font-size: 0.9rem;
         }
 
         .min-amount {
-            color: #28a745;
+            color: var(--primary-green);
             font-weight: 600;
         }
 
         .max-amount {
-            color: #dc3545;
+            color: var(--red);
             font-weight: 600;
+        }
+
+        .quick-amounts {
+            margin-top: 15px;
+        }
+
+        .quick-amounts h4 {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .amount-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .amount-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .amount-btn {
+            padding: 12px 5px;
+            background: linear-gradient(135deg, var(--gold), var(--dark-gold));
+            color: var(--text-dark);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .amount-btn:hover {
+            background: linear-gradient(135deg, var(--dark-gold), #d39e00);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .amount-btn.active {
+            background: linear-gradient(135deg, var(--primary-green), var(--dark-green));
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .info-box {
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 5px solid;
+        }
+
+        .pochi-box {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-left-color: var(--primary-green);
+        }
+
+        .security-box {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border-left-color: var(--red);
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pochi-box h3 {
+            color: var(--dark-green);
+        }
+
+        .security-box h3 {
+            color: var(--dark-red);
+        }
+
+        .info-box p {
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .pochi-number {
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: var(--red);
+            background-color: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            display: inline-block;
+            margin: 10px 0;
+            border: 2px dashed var(--gold);
         }
 
         .btn {
             display: block;
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(90deg, #28a745, #20c997);
+            padding: 18px;
+            background: linear-gradient(90deg, var(--primary-green), var(--secondary-green));
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 10px;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
         }
 
-        .btn:hover {
-            background: linear-gradient(90deg, #218838, #1ba87e);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        .btn:hover:not(:disabled) {
+            background: linear-gradient(90deg, var(--dark-green), #1ba87e);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn:active:not(:disabled) {
+            transform: translateY(-1px);
         }
 
         .btn:disabled {
@@ -230,23 +400,45 @@
             box-shadow: none;
         }
 
+        .btn i {
+            margin-right: 10px;
+        }
+
         .payment-steps-container {
             background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            padding: 35px;
             flex: 1;
-            min-width: 300px;
-            max-width: 450px;
-            border: 3px solid;
-            border-image: linear-gradient(90deg, #ffc107, #dc3545, #28a745) 1;
+            min-width: 350px;
+            max-width: 550px;
+            border: 3px solid transparent;
+            border-image: linear-gradient(90deg, var(--gold), var(--red), var(--primary-green)) 1;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-steps-container:hover {
+            transform: translateY(-5px);
         }
 
         .payment-steps-container h2 {
-            color: #dc3545;
+            color: var(--red);
             margin-bottom: 25px;
-            font-size: 1.8rem;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #f0f0f0;
+            font-size: 2rem;
             text-align: center;
+            position: relative;
+        }
+
+        .payment-steps-container h2:after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--red), var(--primary-green));
         }
 
         .steps {
@@ -257,42 +449,46 @@
 
         .step {
             display: flex;
-            gap: 15px;
+            gap: 20px;
+            align-items: flex-start;
         }
 
         .step-number {
-            background: linear-gradient(135deg, #dc3545, #ffc107);
+            background: linear-gradient(135deg, var(--red), var(--gold));
             color: white;
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
+            font-weight: 800;
+            font-size: 1.2rem;
             flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
         }
 
         .step-content h3 {
-            margin-bottom: 8px;
-            color: #333;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+            font-size: 1.3rem;
         }
 
         .step-content p {
-            color: #666;
-            line-height: 1.5;
+            color: var(--text-light);
+            line-height: 1.6;
         }
 
         .mpesa-stk-info {
-            background: linear-gradient(135deg, #d1ecf1, #bee5eb);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            border-left: 4px solid #17a2b8;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 5px solid #2196f3;
         }
 
         .mpesa-stk-info h3 {
-            color: #0c5460;
+            color: #0d47a1;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
@@ -300,23 +496,21 @@
         }
 
         .mpesa-stk-info p {
-            color: #0c5460;
-            font-size: 0.9rem;
-            line-height: 1.5;
+            color: #0d47a1;
+            line-height: 1.6;
         }
 
         .footer {
-            margin-top: 40px;
+            margin-top: 50px;
             text-align: center;
-            color: #666;
-            font-size: 0.9rem;
+            color: var(--text-light);
+            font-size: 0.95rem;
             width: 100%;
-            max-width: 800px;
-            padding-top: 20px;
+            max-width: 900px;
+            padding: 25px;
             border-top: 1px solid #ddd;
             background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            padding: 20px;
+            border-radius: 15px;
         }
 
         .payment-modal {
@@ -326,50 +520,51 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background-color: white;
-            border-radius: 15px;
+            border-radius: 20px;
             width: 90%;
-            max-width: 450px;
-            padding: 30px;
+            max-width: 500px;
+            padding: 35px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            animation: modalFade 0.3s;
-            border: 3px solid;
-            border-image: linear-gradient(90deg, #28a745, #ffc107, #dc3545) 1;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: modalFade 0.4s;
+            border: 3px solid transparent;
+            border-image: linear-gradient(90deg, var(--primary-green), var(--gold), var(--red)) 1;
         }
 
         @keyframes modalFade {
-            from {opacity: 0; transform: translateY(-30px);}
-            to {opacity: 1; transform: translateY(0);}
+            from {opacity: 0; transform: translateY(-40px) scale(0.9);}
+            to {opacity: 1; transform: translateY(0) scale(1);}
         }
 
         .modal-content h3 {
-            color: #28a745;
+            color: var(--primary-green);
             margin-bottom: 20px;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
         }
 
         .modal-content p {
             margin-bottom: 20px;
-            color: #555;
-            line-height: 1.5;
+            color: var(--text-dark);
+            line-height: 1.6;
         }
 
         .loader {
             border: 5px solid #f3f3f3;
-            border-top: 5px solid #28a745;
+            border-top: 5px solid var(--primary-green);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             animation: spin 1s linear infinite;
-            margin: 20px auto;
+            margin: 25px auto;
         }
 
         @keyframes spin {
@@ -378,66 +573,95 @@
         }
 
         .success-icon {
-            color: #28a745;
-            font-size: 4rem;
+            color: var(--primary-green);
+            font-size: 5rem;
             margin: 20px 0;
+            animation: bounce 1s;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
         }
 
         .thankyou-message {
-            background: linear-gradient(135deg, #d4edda, #c3e6cb);
-            border-radius: 10px;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            border-radius: 12px;
             padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #28a745;
+            margin: 25px 0;
+            border-left: 5px solid var(--primary-green);
         }
 
         .thankyou-message h4 {
-            color: #155724;
+            color: var(--dark-green);
             margin-bottom: 10px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .thankyou-message p {
-            color: #155724;
-            font-size: 0.95rem;
-        }
-
-        .close-btn {
-            background: linear-gradient(90deg, #ffc107, #fd7e14);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-
-        .close-btn:hover {
-            background: linear-gradient(90deg, #e0a800, #e46a10);
+            color: var(--dark-green);
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .transaction-details {
             background-color: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
+            border-radius: 12px;
+            padding: 20px;
             margin: 20px 0;
             text-align: left;
+            border: 2px solid #e9ecef;
         }
 
         .transaction-details p {
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
         .transaction-details .label {
             font-weight: 600;
-            color: #555;
+            color: var(--text-light);
+            flex: 1;
         }
 
         .transaction-details .value {
-            color: #333;
+            color: var(--text-dark);
+            font-weight: 700;
+            flex: 2;
+            text-align: right;
+        }
+
+        .close-btn {
+            background: linear-gradient(90deg, var(--gold), var(--dark-gold));
+            color: var(--text-dark);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            width: 100%;
+        }
+
+        .close-btn:hover {
+            background: linear-gradient(90deg, var(--dark-gold), #d39e00);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .error-icon {
+            color: var(--red);
+            font-size: 5rem;
+            margin: 20px 0;
         }
 
         @media (max-width: 768px) {
@@ -449,40 +673,120 @@
             .payment-form-container, .payment-steps-container {
                 max-width: 100%;
             }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 9999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-width: 300px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s, fadeOut 0.3s 2.7s;
+            opacity: 0.95;
+        }
+
+        .toast-success {
+            background: linear-gradient(90deg, var(--primary-green), var(--secondary-green));
+        }
+
+        .toast-warning {
+            background: linear-gradient(90deg, var(--gold), #ff9800);
+        }
+
+        .toast-error {
+            background: linear-gradient(90deg, var(--red), #e53935);
+        }
+
+        .toast button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            margin-left: 20px;
+            line-height: 1;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 0.95; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 0.95; }
+            to { opacity: 0; }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="logo">
-            <i class="fas fa-money-bill-wave"></i>
-            <div class="logo-text">
-                <h1>Innocent Tech</h1>
-                <p>Secure M-Pesa STK Push Payments</p>
+            <div class="logo-icon">
+                <i class="fas fa-hand-holding-usd"></i>
             </div>
+            <div class="logo-text">
+                <h1>Innocent Tech Payments</h1>
+                <p>Secure M-Pesa STK Push Payment Gateway</p>
+            </div>
+        </div>
+        <div class="tagline">
+            Fast, Secure, and Convenient Mobile Payments
         </div>
     </div>
 
     <div class="container">
         <div class="payment-form-container">
-            <h2>Pochi La Biashara Payment</h2>
+            <h2><i class="fas fa-mobile-alt"></i> Payment Request</h2>
             
             <div class="info-box pochi-box">
-                <p>Make payments directly to our Pochi La Biashara via M-Pesa STK Push:</p>
-                <p class="pochi-number">0741 212 845</p>
-                <p>No M-Pesa app needed. Just enter your phone number and amount below.</p>
+                <h3><i class="fas fa-qrcode"></i> Pochi La Biashara</h3>
+                <p>Make instant payments to our business via M-Pesa STK Push:</p>
+                <div class="pochi-number">0741 212 845</div>
+                <p>No app needed. Just enter your phone number and amount below.</p>
             </div>
             
             <form id="paymentForm">
                 <div class="form-group">
-                    <label for="phone">Your M-Pesa Phone Number</label>
-                    <input type="tel" id="phone" class="form-control" placeholder="e.g. 0712 345 678" required>
+                    <label for="phone"><i class="fas fa-phone"></i> M-Pesa Phone Number</label>
+                    <div class="phone-input-wrapper">
+                        <span class="phone-prefix">+254</span>
+                        <input type="tel" id="phone" class="form-control phone-input" 
+                               placeholder="712 345 678" 
+                               maxlength="9"
+                               required>
+                    </div>
+                    <div class="phone-helper">
+                        <span>Enter 9 digits without the leading 0</span>
+                        <span class="phone-count">0/9</span>
+                    </div>
+                    <div class="error-message" id="phoneError">Phone number must be exactly 9 digits</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="amount">Payment Amount (KES)</label>
-                    <div class="amount-input">
-                        <input type="number" id="amount" class="form-control" min="30" max="5000" placeholder="Enter amount between 30 and 5000" required>
+                    <label for="amount"><i class="fas fa-money-bill-wave"></i> Payment Amount (KES)</label>
+                    <div class="amount-input-wrapper">
+                        <span class="amount-prefix">KES</span>
+                        <input type="number" id="amount" class="form-control amount-input" 
+                               min="30" max="5000" 
+                               placeholder="Enter amount between 30 and 5000" 
+                               required>
                     </div>
                     <div class="amount-limits">
                         <span class="min-amount">Minimum: KES 30</span>
@@ -490,31 +794,49 @@
                     </div>
                 </div>
                 
+                <div class="quick-amounts">
+                    <h4><i class="fas fa-bolt"></i> Quick Amount Selection</h4>
+                    <div class="amount-grid">
+                        <button type="button" class="amount-btn" data-amount="30">KES 30</button>
+                        <button type="button" class="amount-btn" data-amount="50">KES 50</button>
+                        <button type="button" class="amount-btn" data-amount="70">KES 70</button>
+                        <button type="button" class="amount-btn" data-amount="100">KES 100</button>
+                        <button type="button" class="amount-btn" data-amount="150">KES 150</button>
+                        <button type="button" class="amount-btn" data-amount="200">KES 200</button>
+                        <button type="button" class="amount-btn" data-amount="250">KES 250</button>
+                        <button type="button" class="amount-btn" data-amount="300">KES 300</button>
+                        <button type="button" class="amount-btn" data-amount="500">KES 500</button>
+                        <button type="button" class="amount-btn" data-amount="1000">KES 1,000</button>
+                        <button type="button" class="amount-btn" data-amount="1500">KES 1,500</button>
+                        <button type="button" class="amount-btn" data-amount="2000">KES 2,000</button>
+                    </div>
+                </div>
+                
                 <div class="form-group">
-                    <label for="description">Payment Description (Optional)</label>
-                    <input type="text" id="description" class="form-control" placeholder="e.g. Payment for services">
+                    <label for="description"><i class="fas fa-file-alt"></i> Payment Description (Optional)</label>
+                    <input type="text" id="description" class="form-control" placeholder="e.g. Payment for services, Invoice #12345">
                 </div>
                 
                 <button type="submit" class="btn" id="submitBtn">
-                    <i class="fas fa-paper-plane"></i> Initiate M-Pesa STK Push
+                    <i class="fas fa-paper-plane"></i> Send M-Pesa Payment Request
                 </button>
             </form>
             
             <div class="info-box security-box">
-                <h3 style="color: #721c24; margin-bottom: 10px;"><i class="fas fa-shield-alt"></i> Secure Payment</h3>
-                <p>Your payment is processed securely via Safaricom's M-Pesa STK Push system. You will receive a prompt on your phone to enter your M-Pesa PIN to complete the transaction. We never store your PIN or personal financial information.</p>
+                <h3><i class="fas fa-shield-alt"></i> Security Assurance</h3>
+                <p>Your payment is processed securely via Safaricom's M-Pesa STK Push system. You will receive a prompt on your phone to enter your M-Pesa PIN. We never store your PIN or personal financial information. All transactions are encrypted.</p>
             </div>
         </div>
         
         <div class="payment-steps-container">
-            <h2>How M-Pesa STK Push Works</h2>
+            <h2><i class="fas fa-list-ol"></i> How It Works</h2>
             
             <div class="steps">
                 <div class="step">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h3>Enter Your Details</h3>
-                        <p>Provide your M-Pesa registered phone number and the amount you want to pay (KES 30 - 5,000).</p>
+                        <h3>Enter Phone & Amount</h3>
+                        <p>Provide your 9-digit M-Pesa registered phone number (without leading 0) and select payment amount (KES 30 - 5,000).</p>
                     </div>
                 </div>
                 
@@ -522,7 +844,7 @@
                     <div class="step-number">2</div>
                     <div class="step-content">
                         <h3>Initiate STK Push</h3>
-                        <p>Click "Initiate M-Pesa STK Push" to send a payment request directly to your phone via SMS.</p>
+                        <p>Click "Send M-Pesa Payment Request" to trigger an STK Push directly to your phone via Safaricom.</p>
                     </div>
                 </div>
                 
@@ -530,84 +852,98 @@
                     <div class="step-number">3</div>
                     <div class="step-content">
                         <h3>Enter M-Pesa PIN</h3>
-                        <p>Check your phone for an M-Pesa STK Push prompt and enter your PIN to authorize the payment.</p>
+                        <p>Check your phone for an M-Pesa STK Push prompt and enter your PIN to authorize payment to Pochi La Biashara.</p>
                     </div>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">4</div>
                     <div class="step-content">
-                        <h3>Payment Confirmation</h3>
-                        <p>You'll receive an M-Pesa confirmation message and see a success notification on this page.</p>
+                        <h3>Receive Confirmation</h3>
+                        <p>Get instant M-Pesa confirmation SMS and see payment success notification with thank you message.</p>
                     </div>
                 </div>
             </div>
             
             <div class="mpesa-stk-info">
-                <h3><i class="fas fa-mobile-alt"></i> About M-Pesa STK Push</h3>
-                <p>STK (Sim ToolKit) Push is a Safaricom service that sends a direct payment prompt to your phone. You don't need the M-Pesa app or to dial any USSD codes. Just enter your PIN when prompted to complete payment to Pochi La Biashara.</p>
+                <h3><i class="fas fa-info-circle"></i> About STK Push Technology</h3>
+                <p>STK (Sim ToolKit) Push sends a direct payment prompt to your mobile device without needing the M-Pesa app or dialing USSD codes. It's the fastest and most secure way to make mobile payments in Kenya, directly integrated with Safaricom's M-Pesa system.</p>
+            </div>
+            
+            <div class="info-box" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); border-left-color: #9c27b0; margin-top: 25px;">
+                <h3 style="color: #7b1fa2;"><i class="fas fa-clock"></i> Processing Time</h3>
+                <p>Most payments are processed within 30 seconds. If you don't receive the STK Push within 60 seconds, please try again. Payment confirmations are sent immediately after completion.</p>
             </div>
         </div>
     </div>
     
     <div class="footer">
-        <p>&copy; 2023 Innocent Tech Payment Solutions. All rights reserved.</p>
-        <p>This is a simulated M-Pesa STK Push payment interface for demonstration purposes.</p>
+        <p><i class="fas fa-copyright"></i> 2023 Innocent Tech Payment Solutions. All rights reserved.</p>
+        <p><i class="fas fa-info-circle"></i> This is a simulated M-Pesa STK Push payment interface for demonstration purposes.</p>
+        <p style="margin-top: 10px;"><i class="fas fa-headset"></i> Need help? Contact support: support@innocenttech.co.ke | +254 741 212 845</p>
     </div>
     
     <!-- Payment Processing Modal -->
     <div class="payment-modal" id="paymentModal">
         <div class="modal-content">
             <div id="processingContent">
-                <h3>Initiating M-Pesa STK Push</h3>
-                <p>Please wait while we connect to Safaricom M-Pesa...</p>
+                <h3><i class="fas fa-cogs"></i> Initiating Payment</h3>
+                <p>Please wait while we connect to Safaricom M-Pesa gateway...</p>
                 <div class="loader"></div>
-                <p id="processingMessage">Sending STK Push request to your phone...</p>
+                <p id="processingMessage">Establishing secure connection...</p>
             </div>
             
             <div id="successContent" style="display: none;">
                 <div class="success-icon">
                     <i class="fas fa-check-circle"></i>
                 </div>
-                <h3>STK Push Sent Successfully!</h3>
+                <h3>Payment Request Sent!</h3>
                 
                 <div class="transaction-details">
                     <p>
-                        <span class="label">To:</span>
-                        <span class="value">Pochi La Biashara (0741 212 845)</span>
-                    </p>
-                    <p>
-                        <span class="label">Amount:</span>
-                        <span class="value">KES <span id="displayAmount"></span></span>
+                        <span class="label">Recipient:</span>
+                        <span class="value">Pochi La Biashara</span>
                     </p>
                     <p>
                         <span class="label">Phone:</span>
-                        <span class="value" id="displayPhone"></span>
+                        <span class="value">0741 212 845</span>
+                    </p>
+                    <p>
+                        <span class="label">From:</span>
+                        <span class="value" id="displayPhone">0712 345 678</span>
+                    </p>
+                    <p>
+                        <span class="label">Amount:</span>
+                        <span class="value">KES <span id="displayAmount">0</span></span>
                     </p>
                     <p>
                         <span class="label">Reference:</span>
-                        <span class="value">INN<span id="referenceNumber"></span></span>
+                        <span class="value">INN<span id="referenceNumber">123456</span></span>
+                    </p>
+                    <p>
+                        <span class="label">Time:</span>
+                        <span class="value" id="transactionTime">12:45 PM</span>
                     </p>
                 </div>
                 
                 <div class="thankyou-message">
-                    <h4><i class="fas fa-heart"></i> Thank You for Your Payment!</h4>
-                    <p>We truly appreciate your business and the trust you've placed in Innocent Tech. Your payment has been processed successfully and will be reflected in our account shortly. We're grateful for your support!</p>
+                    <h4><i class="fas fa-heart"></i> Thank You For Your Payment!</h4>
+                    <p>We sincerely appreciate your business and the trust you've placed in Innocent Tech. Your payment has been successfully processed and will be reflected in our account shortly. We're grateful for your support and look forward to serving you again!</p>
                 </div>
                 
-                <p><strong>Check your phone now and enter your M-Pesa PIN to complete the payment.</strong></p>
-                <p style="font-size: 0.9rem; color: #666;">You will receive an M-Pesa confirmation SMS within moments.</p>
+                <p><strong><i class="fas fa-mobile-alt"></i> Check your phone now and enter your M-Pesa PIN to complete the transaction.</strong></p>
+                <p style="font-size: 0.95rem; color: var(--text-light); margin-top: 15px;">You will receive an M-Pesa confirmation SMS within moments.</p>
                 
                 <button class="close-btn" id="closeModalBtn">
-                    <i class="fas fa-times"></i> Close
+                    <i class="fas fa-times"></i> Close This Window
                 </button>
             </div>
             
             <div id="errorContent" style="display: none;">
-                <div class="success-icon" style="color: #dc3545;">
+                <div class="error-icon">
                     <i class="fas fa-exclamation-circle"></i>
                 </div>
-                <h3>STK Push Failed</h3>
+                <h3>Payment Request Failed</h3>
                 <p id="errorMessage">There was an error processing your payment request. Please try again.</p>
                 <button class="close-btn" id="errorCloseBtn">
                     <i class="fas fa-redo"></i> Try Again
@@ -626,42 +962,125 @@
             const displayPhone = document.getElementById('displayPhone');
             const displayAmount = document.getElementById('displayAmount');
             const referenceNumber = document.getElementById('referenceNumber');
+            const transactionTime = document.getElementById('transactionTime');
             const closeModalBtn = document.getElementById('closeModalBtn');
             const errorCloseBtn = document.getElementById('errorCloseBtn');
             const submitBtn = document.getElementById('submitBtn');
             const phoneInput = document.getElementById('phone');
             const amountInput = document.getElementById('amount');
+            const phoneError = document.getElementById('phoneError');
+            const phoneCount = document.querySelector('.phone-count');
             const processingMessage = document.getElementById('processingMessage');
             const errorMessage = document.getElementById('errorMessage');
+            const amountButtons = document.querySelectorAll('.amount-btn');
             
-            // Format phone number as user types
+            let selectedAmountBtn = null;
+            
+            // Format phone number as user types (only numbers, max 9 digits)
             phoneInput.addEventListener('input', function(e) {
                 let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 0) {
-                    if (value.length <= 3) {
-                        value = value;
-                    } else if (value.length <= 6) {
-                        value = value.slice(0, 3) + ' ' + value.slice(3);
-                    } else if (value.length <= 9) {
-                        value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6);
-                    } else {
-                        value = value.slice(0, 3) + ' ' + value.slice(3, 6) + ' ' + value.slice(6, 9);
-                    }
+                
+                // Limit to 9 digits
+                if (value.length > 9) {
+                    value = value.substring(0, 9);
                 }
+                
+                // Format with spaces for readability
+                if (value.length > 6) {
+                    value = value.substring(0, 3) + ' ' + value.substring(3, 6) + ' ' + value.substring(6);
+                } else if (value.length > 3) {
+                    value = value.substring(0, 3) + ' ' + value.substring(3);
+                }
+                
                 e.target.value = value;
+                
+                // Update character count
+                const digitCount = value.replace(/\s/g, '').length;
+                phoneCount.textContent = `${digitCount}/9`;
+                
+                // Validate phone number
+                validatePhoneNumber();
             });
             
-            // Format amount as user types
+            // Validate phone number function
+            function validatePhoneNumber() {
+                const phoneDigits = phoneInput.value.replace(/\s/g, '');
+                const isValid = phoneDigits.length === 9 && /^[0-9]{9}$/.test(phoneDigits);
+                
+                if (phoneDigits.length === 0) {
+                    phoneInput.classList.remove('error', 'success');
+                    phoneCount.classList.remove('error', 'success');
+                    phoneError.style.display = 'none';
+                    phoneCount.textContent = '0/9';
+                    return false;
+                }
+                
+                if (isValid) {
+                    phoneInput.classList.remove('error');
+                    phoneInput.classList.add('success');
+                    phoneCount.classList.remove('error');
+                    phoneCount.classList.add('success');
+                    phoneError.style.display = 'none';
+                    return true;
+                } else {
+                    phoneInput.classList.remove('success');
+                    phoneInput.classList.add('error');
+                    phoneCount.classList.remove('success');
+                    phoneCount.classList.add('error');
+                    
+                    if (phoneDigits.length > 0) {
+                        phoneError.style.display = 'block';
+                    } else {
+                        phoneError.style.display = 'none';
+                    }
+                    
+                    return false;
+                }
+            }
+            
+            // Validate amount as user types
             amountInput.addEventListener('input', function(e) {
-                let value = e.target.value;
+                let value = parseInt(e.target.value) || 0;
+                
                 if (value > 5000) {
                     e.target.value = 5000;
                     showToast("Maximum amount is KES 5,000", "warning");
                 }
-                if (value < 30 && value !== "") {
+                if (value < 30 && value > 0) {
                     e.target.value = 30;
                     showToast("Minimum amount is KES 30", "warning");
                 }
+                
+                // Remove active class from amount buttons if amount doesn't match
+                if (selectedAmountBtn && parseInt(selectedAmountBtn.getAttribute('data-amount')) !== value) {
+                    selectedAmountBtn.classList.remove('active');
+                    selectedAmountBtn = null;
+                }
+            });
+            
+            // Handle quick amount button clicks
+            amountButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const amount = this.getAttribute('data-amount');
+                    
+                    // Remove active class from previously selected button
+                    if (selectedAmountBtn) {
+                        selectedAmountBtn.classList.remove('active');
+                    }
+                    
+                    // Set active class to current button
+                    this.classList.add('active');
+                    selectedAmountBtn = this;
+                    
+                    // Update amount input
+                    amountInput.value = amount;
+                    
+                    // Show success toast
+                    showToast(`Amount set to KES ${amount}`, "success");
+                    
+                    // Focus on next field for better UX
+                    document.getElementById('description').focus();
+                });
             });
             
             // Handle form submission
@@ -669,27 +1088,29 @@
                 e.preventDefault();
                 
                 // Get form values
-                const phone = phoneInput.value.replace(/\s/g, '');
+                const phoneDigits = phoneInput.value.replace(/\s/g, '');
                 const amount = amountInput.value;
                 const description = document.getElementById('description').value || 'Payment to Innocent Tech';
                 
                 // Validate phone number
-                if (!phone || phone.length !== 9 || !phone.startsWith('07')) {
-                    showError('Please enter a valid Safaricom phone number (e.g. 0712345678)');
+                if (!validatePhoneNumber()) {
+                    showToast("Please enter a valid 9-digit phone number", "error");
+                    phoneInput.focus();
                     return;
                 }
                 
                 // Validate amount
                 if (!amount || amount < 30 || amount > 5000) {
-                    showError('Please enter a valid amount between KES 30 and KES 5,000');
+                    showToast("Please enter a valid amount between KES 30 and KES 5,000", "error");
+                    amountInput.focus();
                     return;
                 }
                 
                 // Show processing modal
-                showProcessingModal(phone, amount);
+                showProcessingModal(phoneDigits, amount);
                 
                 // Simulate M-Pesa STK Push processing
-                simulateSTKPushProcessing(phone, amount, description);
+                simulateSTKPushProcessing(phoneDigits, amount, description);
             });
             
             // Show processing modal
@@ -699,14 +1120,19 @@
                 successContent.style.display = 'none';
                 errorContent.style.display = 'none';
                 
-                // Display formatted phone number
-                const formattedPhone = phone.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
-                displayPhone.textContent = formattedPhone;
+                // Display formatted phone number (add leading 0 for display)
+                const displayPhoneNumber = '0' + phone.substring(0, 3) + ' ' + phone.substring(3, 6) + ' ' + phone.substring(6);
+                displayPhone.textContent = displayPhoneNumber;
                 displayAmount.textContent = Number(amount).toLocaleString();
                 
                 // Generate a random reference number
                 const refNum = Math.floor(100000 + Math.random() * 900000);
                 referenceNumber.textContent = refNum;
+                
+                // Set current time
+                const now = new Date();
+                const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                transactionTime.textContent = timeString;
                 
                 // Disable submit button
                 submitBtn.disabled = true;
@@ -719,13 +1145,20 @@
                 successContent.style.display = 'block';
                 errorContent.style.display = 'none';
                 
-                // Reset form
+                // Reset form and remove active button
                 paymentForm.reset();
+                if (selectedAmountBtn) {
+                    selectedAmountBtn.classList.remove('active');
+                    selectedAmountBtn = null;
+                }
+                phoneCount.textContent = '0/9';
+                phoneInput.classList.remove('success', 'error');
+                phoneError.style.display = 'none';
                 
                 // Re-enable submit button after a delay
                 setTimeout(() => {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Initiate M-Pesa STK Push';
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send M-Pesa Payment Request';
                 }, 3000);
             }
             
@@ -740,65 +1173,21 @@
                 
                 // Re-enable submit button
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Initiate M-Pesa STK Push';
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send M-Pesa Payment Request';
             }
             
             // Show toast notification
             function showToast(message, type) {
+                // Remove existing toasts
+                document.querySelectorAll('.toast').forEach(toast => toast.remove());
+                
                 // Create toast element
                 const toast = document.createElement('div');
-                toast.className = `toast-notification ${type}`;
+                toast.className = `toast toast-${type}`;
                 toast.innerHTML = `
                     <span>${message}</span>
                     <button onclick="this.parentElement.remove()">&times;</button>
                 `;
-                
-                // Add styles if not already added
-                if (!document.querySelector('#toast-styles')) {
-                    const style = document.createElement('style');
-                    style.id = 'toast-styles';
-                    style.textContent = `
-                        .toast-notification {
-                            position: fixed;
-                            top: 20px;
-                            right: 20px;
-                            padding: 15px 20px;
-                            border-radius: 8px;
-                            color: white;
-                            font-weight: 500;
-                            z-index: 9999;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            min-width: 300px;
-                            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-                            animation: slideIn 0.3s, fadeOut 0.3s 2.7s;
-                        }
-                        .toast-notification.warning {
-                            background: linear-gradient(90deg, #ffc107, #ff9800);
-                        }
-                        .toast-notification.success {
-                            background: linear-gradient(90deg, #28a745, #20c997);
-                        }
-                        .toast-notification button {
-                            background: transparent;
-                            border: none;
-                            color: white;
-                            font-size: 20px;
-                            cursor: pointer;
-                            margin-left: 15px;
-                        }
-                        @keyframes slideIn {
-                            from { transform: translateX(100%); opacity: 0; }
-                            to { transform: translateX(0); opacity: 1; }
-                        }
-                        @keyframes fadeOut {
-                            from { opacity: 1; }
-                            to { opacity: 0; }
-                        }
-                    `;
-                    document.head.appendChild(style);
-                }
                 
                 document.body.appendChild(toast);
                 
@@ -810,44 +1199,48 @@
                 }, 3000);
             }
             
-            // Simulate M-Pesa STK Push processing
+            // Simulate M-Pesa STK Push processing with realistic messages
             function simulateSTKPushProcessing(phone, amount, description) {
-                // Simulate API call delays
-                setTimeout(() => {
-                    processingMessage.textContent = "Connecting to Safaricom M-Pesa gateway...";
-                }, 1000);
+                const steps = [
+                    {time: 1000, message: "Connecting to Safaricom M-Pesa gateway..."},
+                    {time: 2500, message: "Authenticating request..."},
+                    {time: 4000, message: "Generating STK Push request..."},
+                    {time: 5500, message: "Sending payment prompt to your phone..."},
+                    {time: 7000, message: "Waiting for user confirmation..."}
+                ];
                 
-                setTimeout(() => {
-                    processingMessage.textContent = "Generating STK Push request...";
-                }, 2500);
+                steps.forEach(step => {
+                    setTimeout(() => {
+                        processingMessage.textContent = step.message;
+                    }, step.time);
+                });
                 
+                // Simulate successful STK Push after 8 seconds
                 setTimeout(() => {
-                    processingMessage.textContent = "Sending payment prompt to your phone...";
-                }, 4000);
-                
-                // Simulate successful STK Push after 6 seconds
-                setTimeout(() => {
-                    // 85% chance of success for demo purposes
-                    if (Math.random() < 0.85) {
+                    // 90% chance of success for demo purposes
+                    if (Math.random() < 0.9) {
                         showSuccessModal();
-                        showToast("STK Push sent successfully! Check your phone.", "success");
+                        showToast("STK Push sent successfully! Check your phone for the prompt.", "success");
                     } else {
                         // Random error messages
                         const errors = [
-                            "Unable to connect to M-Pesa at this time. Please check your network connection.",
-                            "Your phone number is not registered for M-Pesa. Please use a registered number.",
-                            "Transaction limit exceeded. Please try a smaller amount.",
-                            "System busy. Please try again in a few moments."
+                            "Unable to connect to M-Pesa. Please check your network connection and try again.",
+                            "Your phone number is not registered for M-Pesa. Please use a registered Safaricom number.",
+                            "Daily transaction limit exceeded. Please try again tomorrow or use a smaller amount.",
+                            "System is temporarily busy. Please try again in a few moments.",
+                            "Insufficient M-Pesa balance. Please ensure you have enough funds."
                         ];
                         const randomError = errors[Math.floor(Math.random() * errors.length)];
                         showError(randomError);
+                        showToast("Payment request failed. Please try again.", "error");
                     }
-                }, 6000);
+                }, 8000);
             }
             
             // Close modal buttons
             closeModalBtn.addEventListener('click', function() {
                 paymentModal.style.display = 'none';
+                showToast("Payment process completed. Thank you!", "success");
             });
             
             errorCloseBtn.addEventListener('click', function() {
@@ -864,53 +1257,38 @@
             // Demo: Auto-fill form with sample data for testing
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('demo')) {
-                phoneInput.value = '0712 345 678';
-                amountInput.value = '250';
+                phoneInput.value = '712 345 678';
+                validatePhoneNumber();
+                amountInput.value = '500';
                 document.getElementById('description').value = 'Payment for Innocent Tech services';
+                
+                // Auto-select the corresponding amount button
+                amountButtons.forEach(btn => {
+                    if (btn.getAttribute('data-amount') === '500') {
+                        btn.click();
+                    }
+                });
+                
+                showToast("Demo mode activated. Form pre-filled with sample data.", "success");
             }
             
-            // Add a quick amount buttons for convenience
-            const amountButtons = document.createElement('div');
-            amountButtons.className = 'amount-buttons';
-            amountButtons.innerHTML = `
-                <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <button type="button" class="quick-amount" data-amount="100">KES 100</button>
-                    <button type="button" class="quick-amount" data-amount="500">KES 500</button>
-                    <button type="button" class="quick-amount" data-amount="1000">KES 1,000</button>
-                </div>
-            `;
-            
-            // Add styles for quick amount buttons
-            const quickAmountStyles = document.createElement('style');
-            quickAmountStyles.textContent = `
-                .quick-amount {
-                    flex: 1;
-                    padding: 10px;
-                    background: linear-gradient(90deg, #ffc107, #fd7e14);
-                    color: white;
-                    border: none;
-                    border-radius: 8px;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: all 0.3s;
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+Enter to submit form
+                if (e.ctrlKey && e.key === 'Enter') {
+                    if (!submitBtn.disabled) {
+                        paymentForm.requestSubmit();
+                    }
                 }
-                .quick-amount:hover {
-                    background: linear-gradient(90deg, #e0a800, #e46a10);
-                    transform: translateY(-2px);
-                }
-            `;
-            document.head.appendChild(quickAmountStyles);
-            
-            amountInput.parentNode.insertBefore(amountButtons, amountInput.nextSibling);
-            
-            // Add event listeners to quick amount buttons
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('quick-amount')) {
-                    const amount = e.target.getAttribute('data-amount');
-                    amountInput.value = amount;
-                    showToast(`Amount set to KES ${amount}`, "success");
+                
+                // Escape to close modal
+                if (e.key === 'Escape' && paymentModal.style.display === 'flex') {
+                    paymentModal.style.display = 'none';
                 }
             });
+            
+            // Initialize form validation on page load
+            validatePhoneNumber();
         });
     </script>
 </body>
