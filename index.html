@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INNOCENT TECH  - M-Pesa STK Push Payment</title>
+    <title>INNOCENT TECH - M-Pesa STK Push Payment</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -191,21 +191,44 @@
         }
 
         .phone-input-wrapper {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .country-code-selector {
+            flex: 0 0 120px;
             position: relative;
         }
 
-        .phone-prefix {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: 600;
-            color: var(--text-light);
-            z-index: 2;
+        .country-code-dropdown {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e1e5ee;
+            border-radius: 12px;
+            font-size: 17px;
+            background-color: var(--white);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 15px;
+            padding-right: 45px;
+        }
+
+        .country-code-dropdown:focus {
+            border-color: var(--primary-green);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+        }
+
+        .phone-number-input {
+            flex: 1;
         }
 
         .phone-input {
-            padding-left: 50px !important;
+            padding-left: 20px !important;
         }
 
         .phone-helper {
@@ -681,6 +704,16 @@
             .logo-text h1 {
                 font-size: 2rem;
             }
+            
+            .phone-input-wrapper {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .country-code-selector {
+                flex: 0 0 auto;
+                width: 100%;
+            }
         }
 
         /* Toast Notification */
@@ -733,6 +766,12 @@
             from { opacity: 0.95; }
             to { opacity: 0; }
         }
+        
+        .country-flag {
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -742,7 +781,7 @@
                 <i class="fas fa-hand-holding-usd"></i>
             </div>
             <div class="logo-text">
-                <h1>Innocent Tech Payments</h1>
+                <h1>INNOCENT TECH PAYMENTS</h1>
                 <p>Secure M-Pesa STK Push Payment Gateway</p>
             </div>
         </div>
@@ -766,17 +805,32 @@
                 <div class="form-group">
                     <label for="phone"><i class="fas fa-phone"></i> M-Pesa Phone Number</label>
                     <div class="phone-input-wrapper">
-                        <span class="phone-prefix">+254</span>
-                        <input type="tel" id="phone" class="form-control phone-input" 
-                               placeholder="712 345 678" 
-                               maxlength="9"
-                               required>
+                        <div class="country-code-selector">
+                            <select id="countryCode" class="country-code-dropdown">
+                                <option value="+254">🇰🇪 Kenya (+254)</option>
+                                <option value="+255">🇹🇿 Tanzania (+255)</option>
+                                <option value="+256">🇺🇬 Uganda (+256)</option>
+                                <option value="+257">🇧🇮 Burundi (+257)</option>
+                                <option value="+250">🇷🇼 Rwanda (+250)</option>
+                                <option value="+258">🇲🇿 Mozambique (+258)</option>
+                                <option value="+260">🇿🇲 Zambia (+260)</option>
+                                <option value="+263">🇿🇼 Zimbabwe (+263)</option>
+                                <option value="+27">🇿🇦 South Africa (+27)</option>
+                                <option value="+234">🇳🇬 Nigeria (+234)</option>
+                            </select>
+                        </div>
+                        <div class="phone-number-input">
+                            <input type="tel" id="phone" class="form-control phone-input" 
+                                   placeholder="712 345 678" 
+                                   maxlength="10"
+                                   required>
+                        </div>
                     </div>
                     <div class="phone-helper">
-                        <span>Enter 9 digits without the leading 0</span>
-                        <span class="phone-count">0/9</span>
+                        <span id="phoneFormatHint">Enter 10 digits starting with 7 (e.g., 712345678)</span>
+                        <span class="phone-count">0/10</span>
                     </div>
-                    <div class="error-message" id="phoneError">Phone number must be exactly 10 digits</div>
+                    <div class="error-message" id="phoneError">Phone number must be exactly 10 digits starting with 7</div>
                 </div>
                 
                 <div class="form-group">
@@ -835,13 +889,21 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <div class="step-content">
-                        <h3>Enter Phone & Amount</h3>
-                        <p>Provide your 9-digit M-Pesa registered phone number (without leading 0) and select payment amount (KES 30 - 5,000).</p>
+                        <h3>Select Country & Enter Phone</h3>
+                        <p>Choose your country code and enter your 10-digit M-Pesa registered phone number starting with 7 (e.g., 712345678).</p>
                     </div>
                 </div>
                 
                 <div class="step">
                     <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Select Amount</h3>
+                        <p>Choose payment amount (KES 30 - 5,000) from quick buttons or enter custom amount.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
                     <div class="step-content">
                         <h3>Initiate STK Push</h3>
                         <p>Click "Send M-Pesa Payment Request" to trigger an STK Push directly to your phone via Safaricom.</p>
@@ -849,7 +911,7 @@
                 </div>
                 
                 <div class="step">
-                    <div class="step-number">3</div>
+                    <div class="step-number">4</div>
                     <div class="step-content">
                         <h3>Enter M-Pesa PIN</h3>
                         <p>Check your phone for an M-Pesa STK Push prompt and enter your PIN to authorize payment to Pochi La Biashara.</p>
@@ -857,7 +919,7 @@
                 </div>
                 
                 <div class="step">
-                    <div class="step-number">4</div>
+                    <div class="step-number">5</div>
                     <div class="step-content">
                         <h3>Receive Confirmation</h3>
                         <p>Get instant M-Pesa confirmation SMS and see payment success notification with thank you message.</p>
@@ -867,7 +929,7 @@
             
             <div class="mpesa-stk-info">
                 <h3><i class="fas fa-info-circle"></i> About STK Push Technology</h3>
-                <p>STK (Sim ToolKit) Push sends a direct payment prompt to your mobile device without needing the M-Pesa app or dialing USSD codes. It's the fastest and most secure way to make mobile payments in Kenya, directly integrated with Safaricom's M-Pesa system.</p>
+                <p>STK (Sim ToolKit) Push sends a direct payment prompt to your mobile device without needing the M-Pesa app or dialing USSD codes. It's the fastest and most secure way to make mobile payments in East Africa, directly integrated with M-Pesa systems.</p>
             </div>
             
             <div class="info-box" style="background: linear-gradient(135deg, #f3e5f5, #e1bee7); border-left-color: #9c27b0; margin-top: 25px;">
@@ -888,7 +950,7 @@
         <div class="modal-content">
             <div id="processingContent">
                 <h3><i class="fas fa-cogs"></i> Initiating Payment</h3>
-                <p>Please wait while we connect to Safaricom M-Pesa gateway...</p>
+                <p>Please wait while we connect to M-Pesa gateway...</p>
                 <div class="loader"></div>
                 <p id="processingMessage">Establishing secure connection...</p>
             </div>
@@ -905,12 +967,12 @@
                         <span class="value">Pochi La Biashara</span>
                     </p>
                     <p>
-                        <span class="label">Phone:</span>
+                        <span class="label">Recipient Phone:</span>
                         <span class="value">0741 212 845</span>
                     </p>
                     <p>
-                        <span class="label">From:</span>
-                        <span class="value" id="displayPhone">0712 345 678</span>
+                        <span class="label">From (You):</span>
+                        <span class="value" id="displayPhoneFull">+254 712 345 678</span>
                     </p>
                     <p>
                         <span class="label">Amount:</span>
@@ -928,7 +990,7 @@
                 
                 <div class="thankyou-message">
                     <h4><i class="fas fa-heart"></i> Thank You For Your Payment!</h4>
-                    <p>We sincerely appreciate your business and the trust you've placed in Innocent Tech. Your payment has been successfully processed and will be reflected in our account shortly. We're grateful for your support and look forward to serving you again!</p>
+                    <p>We sincerely appreciate your business and the trust you've placed in INNOCENT TECH. Your payment has been successfully processed and will be reflected in our account shortly. We're grateful for your support and look forward to serving you again!</p>
                 </div>
                 
                 <p><strong><i class="fas fa-mobile-alt"></i> Check your phone now and enter your M-Pesa PIN to complete the transaction.</strong></p>
@@ -959,7 +1021,7 @@
             const processingContent = document.getElementById('processingContent');
             const successContent = document.getElementById('successContent');
             const errorContent = document.getElementById('errorContent');
-            const displayPhone = document.getElementById('displayPhone');
+            const displayPhoneFull = document.getElementById('displayPhoneFull');
             const displayAmount = document.getElementById('displayAmount');
             const referenceNumber = document.getElementById('referenceNumber');
             const transactionTime = document.getElementById('transactionTime');
@@ -967,28 +1029,60 @@
             const errorCloseBtn = document.getElementById('errorCloseBtn');
             const submitBtn = document.getElementById('submitBtn');
             const phoneInput = document.getElementById('phone');
+            const countryCodeSelect = document.getElementById('countryCode');
             const amountInput = document.getElementById('amount');
             const phoneError = document.getElementById('phoneError');
             const phoneCount = document.querySelector('.phone-count');
+            const phoneFormatHint = document.getElementById('phoneFormatHint');
             const processingMessage = document.getElementById('processingMessage');
             const errorMessage = document.getElementById('errorMessage');
             const amountButtons = document.querySelectorAll('.amount-btn');
             
             let selectedAmountBtn = null;
             
-            // Format phone number as user types (only numbers, max 9 digits)
+            // Update phone format hint based on country code
+            function updatePhoneFormatHint() {
+                const countryCode = countryCodeSelect.value;
+                if (countryCode === '+254') {
+                    phoneFormatHint.textContent = "Enter 10 digits starting with 7 (e.g., 712345678)";
+                } else if (countryCode === '+255') {
+                    phoneFormatHint.textContent = "Enter 9 digits starting with 6, 7 or 8 (e.g., 712345678)";
+                } else if (countryCode === '+256') {
+                    phoneFormatHint.textContent = "Enter 9 digits starting with 7 (e.g., 712345678)";
+                } else {
+                    phoneFormatHint.textContent = "Enter your mobile number without leading 0";
+                }
+            }
+            
+            // Initialize phone format hint
+            updatePhoneFormatHint();
+            
+            // Update hint when country code changes
+            countryCodeSelect.addEventListener('change', function() {
+                updatePhoneFormatHint();
+                validatePhoneNumber();
+            });
+            
+            // Format phone number as user types (only numbers, max 10 digits)
             phoneInput.addEventListener('input', function(e) {
                 let value = e.target.value.replace(/\D/g, '');
                 
-                // Limit to 9 digits
-                if (value.length > 9) {
-                    value = value.substring(0, 9);
+                // Limit to 10 digits for Kenya, 9 for others
+                const countryCode = countryCodeSelect.value;
+                const maxLength = countryCode === '+254' ? 10 : 9;
+                
+                if (value.length > maxLength) {
+                    value = value.substring(0, maxLength);
                 }
                 
-                // Format with spaces for readability
-                if (value.length > 6) {
+                // Format with spaces for readability (XXX XXX XXX or XX XX XX XX)
+                if (maxLength === 10 && value.length > 6) {
                     value = value.substring(0, 3) + ' ' + value.substring(3, 6) + ' ' + value.substring(6);
-                } else if (value.length > 3) {
+                } else if (maxLength === 10 && value.length > 3) {
+                    value = value.substring(0, 3) + ' ' + value.substring(3);
+                } else if (maxLength === 9 && value.length > 6) {
+                    value = value.substring(0, 3) + ' ' + value.substring(3, 6) + ' ' + value.substring(6);
+                } else if (maxLength === 9 && value.length > 3) {
                     value = value.substring(0, 3) + ' ' + value.substring(3);
                 }
                 
@@ -996,7 +1090,7 @@
                 
                 // Update character count
                 const digitCount = value.replace(/\s/g, '').length;
-                phoneCount.textContent = `${digitCount}/9`;
+                phoneCount.textContent = `${digitCount}/${maxLength}`;
                 
                 // Validate phone number
                 validatePhoneNumber();
@@ -1005,14 +1099,37 @@
             // Validate phone number function
             function validatePhoneNumber() {
                 const phoneDigits = phoneInput.value.replace(/\s/g, '');
-                const isValid = phoneDigits.length === 9 && /^[0-9]{9}$/.test(phoneDigits);
+                const countryCode = countryCodeSelect.value;
+                const maxLength = countryCode === '+254' ? 10 : 9;
+                
+                let isValid = false;
+                let errorMessage = "";
                 
                 if (phoneDigits.length === 0) {
                     phoneInput.classList.remove('error', 'success');
                     phoneCount.classList.remove('error', 'success');
                     phoneError.style.display = 'none';
-                    phoneCount.textContent = '0/9';
+                    phoneCount.textContent = `0/${maxLength}`;
                     return false;
+                }
+                
+                // Validate based on country code
+                if (countryCode === '+254') {
+                    // Kenya: 10 digits starting with 7
+                    isValid = phoneDigits.length === 10 && /^7[0-9]{9}$/.test(phoneDigits);
+                    errorMessage = "Phone number must be exactly 10 digits starting with 7 (e.g., 712345678)";
+                } else if (countryCode === '+255') {
+                    // Tanzania: 9 digits starting with 6, 7 or 8
+                    isValid = phoneDigits.length === 9 && /^[6-8][0-9]{8}$/.test(phoneDigits);
+                    errorMessage = "Phone number must be exactly 9 digits starting with 6, 7 or 8";
+                } else if (countryCode === '+256') {
+                    // Uganda: 9 digits starting with 7
+                    isValid = phoneDigits.length === 9 && /^7[0-9]{8}$/.test(phoneDigits);
+                    errorMessage = "Phone number must be exactly 9 digits starting with 7";
+                } else {
+                    // Other countries: just check length
+                    isValid = phoneDigits.length === maxLength && /^[0-9]+$/.test(phoneDigits);
+                    errorMessage = `Phone number must be exactly ${maxLength} digits`;
                 }
                 
                 if (isValid) {
@@ -1029,6 +1146,7 @@
                     phoneCount.classList.add('error');
                     
                     if (phoneDigits.length > 0) {
+                        phoneError.textContent = errorMessage;
                         phoneError.style.display = 'block';
                     } else {
                         phoneError.style.display = 'none';
@@ -1089,12 +1207,13 @@
                 
                 // Get form values
                 const phoneDigits = phoneInput.value.replace(/\s/g, '');
+                const countryCode = countryCodeSelect.value;
                 const amount = amountInput.value;
-                const description = document.getElementById('description').value || 'Payment to Innocent Tech';
+                const description = document.getElementById('description').value || 'Payment to INNOCENT TECH';
                 
                 // Validate phone number
                 if (!validatePhoneNumber()) {
-                    showToast("Please enter a valid 9-digit phone number", "error");
+                    showToast("Please enter a valid phone number for your selected country", "error");
                     phoneInput.focus();
                     return;
                 }
@@ -1107,22 +1226,28 @@
                 }
                 
                 // Show processing modal
-                showProcessingModal(phoneDigits, amount);
+                showProcessingModal(countryCode, phoneDigits, amount);
                 
                 // Simulate M-Pesa STK Push processing
-                simulateSTKPushProcessing(phoneDigits, amount, description);
+                simulateSTKPushProcessing(countryCode, phoneDigits, amount, description);
             });
             
             // Show processing modal
-            function showProcessingModal(phone, amount) {
+            function showProcessingModal(countryCode, phone, amount) {
                 paymentModal.style.display = 'flex';
                 processingContent.style.display = 'block';
                 successContent.style.display = 'none';
                 errorContent.style.display = 'none';
                 
-                // Display formatted phone number (add leading 0 for display)
-                const displayPhoneNumber = '0' + phone.substring(0, 3) + ' ' + phone.substring(3, 6) + ' ' + phone.substring(6);
-                displayPhone.textContent = displayPhoneNumber;
+                // Format phone number for display
+                let formattedPhone = phone;
+                if (countryCode === '+254' && phone.length === 10) {
+                    formattedPhone = phone.substring(0, 3) + ' ' + phone.substring(3, 6) + ' ' + phone.substring(6);
+                } else if (phone.length === 9) {
+                    formattedPhone = phone.substring(0, 3) + ' ' + phone.substring(3, 6) + ' ' + phone.substring(6);
+                }
+                
+                displayPhoneFull.textContent = `${countryCode} ${formattedPhone}`;
                 displayAmount.textContent = Number(amount).toLocaleString();
                 
                 // Generate a random reference number
@@ -1151,7 +1276,11 @@
                     selectedAmountBtn.classList.remove('active');
                     selectedAmountBtn = null;
                 }
-                phoneCount.textContent = '0/9';
+                
+                // Reset phone validation
+                const countryCode = countryCodeSelect.value;
+                const maxLength = countryCode === '+254' ? 10 : 9;
+                phoneCount.textContent = `0/${maxLength}`;
                 phoneInput.classList.remove('success', 'error');
                 phoneError.style.display = 'none';
                 
@@ -1200,9 +1329,9 @@
             }
             
             // Simulate M-Pesa STK Push processing with realistic messages
-            function simulateSTKPushProcessing(phone, amount, description) {
+            function simulateSTKPushProcessing(countryCode, phone, amount, description) {
                 const steps = [
-                    {time: 1000, message: "Connecting to Safaricom M-Pesa gateway..."},
+                    {time: 1000, message: "Connecting to M-Pesa gateway..."},
                     {time: 2500, message: "Authenticating request..."},
                     {time: 4000, message: "Generating STK Push request..."},
                     {time: 5500, message: "Sending payment prompt to your phone..."},
@@ -1225,10 +1354,11 @@
                         // Random error messages
                         const errors = [
                             "Unable to connect to M-Pesa. Please check your network connection and try again.",
-                            "Your phone number is not registered for M-Pesa. Please use a registered Safaricom number.",
+                            "Your phone number is not registered for M-Pesa. Please use a registered number.",
                             "Daily transaction limit exceeded. Please try again tomorrow or use a smaller amount.",
                             "System is temporarily busy. Please try again in a few moments.",
-                            "Insufficient M-Pesa balance. Please ensure you have enough funds."
+                            "Insufficient M-Pesa balance. Please ensure you have enough funds.",
+                            "M-Pesa service is currently unavailable in your region. Please try again later."
                         ];
                         const randomError = errors[Math.floor(Math.random() * errors.length)];
                         showError(randomError);
@@ -1257,10 +1387,12 @@
             // Demo: Auto-fill form with sample data for testing
             const urlParams = new URLSearchParams(window.location.search);
             if (urlParams.has('demo')) {
+                countryCodeSelect.value = '+254';
+                updatePhoneFormatHint();
                 phoneInput.value = '712 345 678';
                 validatePhoneNumber();
                 amountInput.value = '500';
-                document.getElementById('description').value = 'Payment for Innocent Tech services';
+                document.getElementById('description').value = 'Payment for INNOCENT TECH services';
                 
                 // Auto-select the corresponding amount button
                 amountButtons.forEach(btn => {
